@@ -1,1 +1,1 @@
-# my-GH60-keyboard-mapping
+#tracking my personal keyboard firmware revision.
