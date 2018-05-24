@@ -18,11 +18,11 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------'
      */
     KEYMAP_HHKB(
-        FN2, 1,   2,   FN0,   FN1,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC,TRNS,  \
+        FN2, 1,   2,   FN0,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC,TRNS,  \
         TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSLS,      \
         LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,     ENT,       \
-        FN5,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,     RSFT,TRNS,       \
-        FN3,  LALT,LGUI,          SPC,                     RGUI,  RALT,RCTL,FN4),
+        FN4,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,     RSFT,TRNS,       \
+        FN1,  LALT,LGUI,          SPC,                     RGUI,  RALT,RCTL,FN3),
     /* 1: HHKB Fn layer
      * ,-----------------------------------------------------------.
      * |GRV|  |  |  |  |  |  |  |  |  |  |  |  |Del|               |
@@ -45,7 +45,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* 2: HHKB Fn layer
      * ,-----------------------------------------------------------.
-     * |GRV|   |   |   |   |   |   |   | = | / | = |   |   |Del|   |
+     * |GRV|   |   |   |   |   |   |   | = | / | * |   |   |Del|   |
      * |-----------------------------------------------------------|
      * |     |   |   |   |   |   |   | 7 | 8 | 9 | _ |   |   |     |
      * |-----------------------------------------------------------|
@@ -57,23 +57,23 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------'
      */
      KEYMAP_HHKB(
-        GRV,TRNS,TRNS,TRNS,FN1,TRNS,TRNS,TRNS,PEQL,PSLS,PAST,TRNS,TRNS,BSPC,TRNS,\
+        GRV,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,PEQL,PSLS,PAST,TRNS,TRNS,BSPC,TRNS,\
 		TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,7,8,9,PMNS,TRNS,TRNS,TRNS,\
         TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,4,5,6,PPLS,TRNS,PENT,\
         TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,1,2,3,TRNS,TRNS,TRNS,\
-        TRNS,TRNS,SPC,        0       ,DOT,TRNS,TRNS,TRNS),
+        FN1,TRNS,SPC,        0       ,DOT,TRNS,TRNS,TRNS),
 
     /* 3: HHKB Fn layer
      * ,-----------------------------------------------------------.
-     * |GRV|   |   |   |   |   |   |   | = | / | = |   |   |Del|   |
+     * |GRV|f1 |f2 |f3 |f4 |f5 |f6 |f7 |f8 |f9 |f10 |f11 |f12|eject|  
      * |-----------------------------------------------------------|
-     * |     |   |   |   |   |   |   | 7 | 8 | 9 | _ |   |   |     |
+     * |     |   |   |   |   |   |   |   |   |   |   | up|   |     |
      * |-----------------------------------------------------------|
-     * |      |   |   |   |   |   |   | 4 | 5 | 6 | + |   |  Enter |
+     * |      |   |   |   |   |   |   |   |   |pUP|left|right|Enter|
      * |-----------------------------------------------------------|
-     * |       |   |   |   |   |   |   | 1 | 2 | 3 |   |           |
+     * |       |   |   |   |   |   |   |   |   |pDN|down|          |
      * |-----------------------------------------------------------|
-     * |    |    |    |               0         | . |    |    |    |
+     * |    |mouse1|mouse2|                      |  |    |    |    |
      * `-----------------------------------------------------------'
      */
      KEYMAP_HHKB(
@@ -81,7 +81,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,MS_U,TRNS,TRNS,\
         TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,PGUP,MS_L,MS_R,PENT,\
         TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,PGDN,MS_D,TRNS,TRNS,\
-        FN3,BTN1,BTN2,      TRNS       ,TRNS,TRNS,TRNS,FN4),
+        TRNS,BTN1,BTN2,      TRNS       ,TRNS,TRNS,TRNS,FN3),
 
 
     };
@@ -117,11 +117,10 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
    
 const uint16_t PROGMEM fn_actions[] = {
     [0] = ACTION_LAYER_TAP_KEY(1,KC_3),
-	[1] = ACTION_LAYER_TAP_KEY(2,KC_4),
+	[1] = ACTION_LAYER_TAP_TOGGLE(2),
 	[2] = ACTION_FUNCTION(TRICKY_ESC),
 	[3] = ACTION_LAYER_TAP_TOGGLE(3),
-    [4] = ACTION_LAYER_TAP_TOGGLE(2),
-	[5]ACTION_MODS_TAP_TOGGLE(MOD_LSFT),
+	[4] TION_MODS_TAP_TOGGLE(MOD_LSFT),
 };
 
 #ifdef KEYMAP_IN_EEPROM_ENABLE
