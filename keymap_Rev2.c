@@ -21,7 +21,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         FN2, 1,   2,   FN0,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC,TRNS,  \
         TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSLS,      \
         LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,     ENT,       \
-        FN4,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,     RSFT,TRNS,       \
+        LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,     FN4,TRNS,       \
         FN1,  LALT,LGUI,          SPC,                     RGUI,  RALT,RCTL,FN3),
     /* 1: HHKB Fn layer
      * ,-----------------------------------------------------------.
@@ -120,7 +120,7 @@ const uint16_t PROGMEM fn_actions[] = {
 	[1] = ACTION_LAYER_TAP_TOGGLE(2),
 	[2] = ACTION_FUNCTION(TRICKY_ESC),
 	[3] = ACTION_LAYER_TAP_TOGGLE(3),
-	[4] TION_MODS_TAP_TOGGLE(MOD_LSFT),
+	[4] = ACTION_MODS_TAP_TOGGLE(MOD_RSFT),
 };
 
 #ifdef KEYMAP_IN_EEPROM_ENABLE
