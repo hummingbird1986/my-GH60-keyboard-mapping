@@ -3,7 +3,7 @@
 #define _______ KC_TRNS
 
 #define _BL 0
-#define _ML 1
+#define _VIML 1
 #define _NL 2
 #define _HHKB 3
 
@@ -16,7 +16,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	SFT_T(KC_CAPS), KC_NO,   KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,KC_COMM, KC_DOT,KC_SLSH,KC_RSFT,  TT(3),
 	TT(2),KC_LALT,KC_LGUI, KC_SPC, KC_SPC, KC_SPC,KC_RGUI,KC_RALT,KC_NO,KC_CAPS,KC_DEL),
 
-    [_ML]=LAYOUT(
+    [_VIML]=LAYOUT(
     _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
     _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______, 
     _______,_______,_______,_______,_______,_______,KC_LEFT,KC_DOWN,  KC_UP,KC_RIGHT,_______,_______,_______,
@@ -25,9 +25,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_NL]=LAYOUT(
     _______,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10, KC_F11, KC_F12,_______,_______,
-    _______,_______,_______,_______,_______,_______,_______,   KC_7,   KC_8,   KC_9,_______,_______,_______,KC_EJCT, 
+    _______,KC_MPLY,KC_MRWD,KC_MFFD,_______,_______,_______,   KC_7,   KC_8,   KC_9,_______,_______,_______,KC_EJCT, 
     _______,_______,_______,_______,_______,_______,_______,   KC_4,   KC_5,   KC_6,_______,_______,_______, 
-    SFT_T(KC_MUTE),_______,KC_VOLD,KC_VOLU,_______,_______,_______,_______,   KC_1,   KC_2,   KC_3,_______,KC_UP,_______,
+    _______,_______,KC_MUTE,KC_VOLD,KC_VOLU,_______,_______,_______,_______,   KC_1,   KC_2,   KC_3,_______,KC_UP,_______,
     _______,_______,_______,_______,   KC_0,   KC_0, KC_DOT,KC_LEFT,KC_NO,KC_DOWN,KC_RIGHT),
     
     [_HHKB]=LAYOUT(
