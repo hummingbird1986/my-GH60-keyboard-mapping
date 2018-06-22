@@ -10,47 +10,50 @@
 
 #define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 
+static uint16_t key_timer;
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BL]=KEYMAP(
         KC_GRV,         KC_1,   KC_2,  KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL ,KC_BSPC,  KC_NO,
         LT(_VIML, KC_TAB),         KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC,KC_RBRC,KC_BSLS,
         CTL_T(KC_ESC),  KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,KC_NO,  KC_ENT ,
         KC_LSFT,KC_NO , KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_RSFT,TT(_HHKB)  ,
-        TT(_NL),KC_LALT,KC_LGUI,                        KC_SPC,                         KC_RGUI,KC_RALT,DF(_DVOL),KC_DEL
+        TT(_NL),KC_LALT,KC_LGUI,                        KC_SPC,                         KC_RGUI,KC_RALT,F(14),KC_DEL
     ),
 
     [_DVOL]=KEYMAP(
-        F(0)           ,F(1),   F(2),   F(3),   F(4),   F(5),   F(6),   F(7),   F(8),   F(9),  F(10),     F(11),  F(12),KC_BSPC,  KC_NO,
-        KC_TAB,      KC_SCLN,KC_COMM, KC_DOT,   KC_P,   KC_Y,   KC_F,   KC_G,   KC_C,   KC_R,   KC_L,   KC_SLSH,  F(13),KC_BSLS,
-        CTL_T(KC_ESC),  KC_A,   KC_O,   KC_E,   KC_U,   KC_I,   KC_D,   KC_H,   KC_T,   KC_N,   KC_S,   KC_MINS,  KC_NO,  KC_ENT ,
-        KC_LSFT,KC_NO , KC_QUOT,KC_Q,   KC_J,   KC_K,   KC_X,   KC_B,   KC_M,   KC_W,   KC_V,   KC_Z,   KC_RSFT,TT(_HHKB)  ,
-        TT(_NL),KC_LALT,KC_LGUI,                        KC_SPC,                         KC_RGUI,KC_RALT,DF(_BL),KC_DEL
+        F(0)           ,F(1),   F(2),   F(3),   F(4),   F(5),   F(6),   F(7),   F(8),   F(9),  F(10),     F(11),  F(12),_______,  _______,
+        _______,      KC_SCLN,KC_COMM, KC_DOT,   KC_P,   KC_Y,   KC_F,   KC_G,   KC_C,   KC_R,   KC_L,   KC_SLSH,  F(13),_______,
+        _______,  KC_A,   KC_O,   KC_E,   KC_U,   KC_I,   KC_D,   KC_H,   KC_T,   KC_N,   KC_S,KC_MINS,_______,_______ ,
+        _______,KC_NO ,KC_QUOT,   KC_Q,   KC_J,   KC_K,   KC_X,   KC_B,   KC_M,   KC_W,   KC_V,   KC_Z,_______,_______ ,
+        _______,_______,_______,                        _______,                         _______,_______,F(15),_______
     ),
 
 
     [_VIML]=KEYMAP(
         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
-        _______,_______,_______,_______,_______,_______,KC_LEFT,KC_DOWN,  KC_UP,KC_RIGHT,_______,_______,_______,_______,
+        _______,_______,_______,_______,_______,_______,KC_LEFT,KC_DOWN, KC_UP,KC_RIGHT,_______,_______,_______,_______,
         _______,_______,_______,_______,_______,_______,KC_HOME,KC_PGDN,KC_PGUP,_______ ,_______,_______,_______,_______,
         _______,_______,_______,                        _______,                        _______,_______,_______,_______
     ),
     
     
     [_NL]=KEYMAP(
-            _______,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10, KC_F11, KC_F12,_______,_______,
-            _______,KC_MPLY,KC_MRWD,KC_MFFD,_______,_______,_______,KC_7,   KC_8,   KC_9,_______,_______,_______,KC_EJCT,
-            _______,_______,_______,_______,_______,_______,_______,KC_4,   KC_5,   KC_6,_______,_______,_______,_______,
-            _______,_______,KC_MUTE,KC_VOLD,KC_VOLU,_______,_______,_______,KC_1,   KC_2,   KC_3,_______,KC_UP,_______,
-            _______,_______,_______,                        KC_0,                        KC_DOT,KC_LEFT,KC_DOWN,KC_RIGHT
+        _______,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10, KC_F11, KC_F12,_______,_______,
+        _______,KC_MPLY,KC_MRWD,KC_MFFD,_______,_______,_______,KC_7,   KC_8,   KC_9,_______,_______,_______,KC_EJCT,
+        _______,_______,_______,_______,_______,_______,_______,KC_4,   KC_5,   KC_6,_______,_______,_______,_______,
+        _______,_______,KC_MUTE,KC_VOLD,KC_VOLU,_______,_______,_______,KC_1,   KC_2,   KC_3,_______,KC_UP,_______,
+        _______,_______,_______,                        KC_0,                        KC_DOT,KC_LEFT,KC_DOWN,KC_RIGHT
             ),
 
     [_HHKB]=KEYMAP(
             KC_POWER,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10, KC_F11, KC_F12,_______,_______,
-            KC_CAPS,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,  KC_UP,_______,KC_EJCT,
-            _______,_______,_______,_______,_______,_______,_______,_______,KC_HOME,KC_PGUP,KC_LEFT,KC_RIGHT,_______,_______,
-            _______,_______,_______,_______,_______,_______,_______ ,_______,_______,KC_END,KC_PGDN,KC_DOWN,_______,_______,
-            _______,_______,_______,                        _______,                        _______,_______,_______,_______
+        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,  KC_UP,_______,KC_EJCT,
+        _______,_______,_______,_______,_______,_______,_______,_______,KC_HOME,KC_PGUP,KC_LEFT,KC_RIGHT,_______,_______,
+        _______,_______,_______,_______,_______,_______,_______ ,_______,_______,KC_END,KC_PGDN,KC_DOWN,_______,_______,
+        _______,_______,_______,                        _______,                        _______,_______,_______,_______
             ),
 };
 
@@ -70,7 +73,8 @@ enum function_id{
   KEY_12,
   KEY_13,
   KEY_14,
-
+  KEY_15,
+  KEY_16,
 };
 
 const uint16_t PROGMEM fn_actions[] = {
@@ -89,7 +93,8 @@ const uint16_t PROGMEM fn_actions[] = {
 [11] = ACTION_FUNCTION(KEY_12),
 [12] = ACTION_FUNCTION(KEY_13),
 [13] = ACTION_FUNCTION(KEY_14),
-
+[14] = ACTION_FUNCTION(KEY_15),
+[15] = ACTION_FUNCTION(KEY_16),
 };
 
 void key_remap_unshift(keyrecord_t *record, const uint16_t kc)
@@ -230,5 +235,32 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
                 key_remap_shift(record, KC_2);
             }
             break;
+		case KEY_15:
+            if(record->event.pressed){
+			key_timer= timer_read();		
+			}
+			else{
+			  if(timer_elapsed(key_timer)<500){
+				register_code(KC_CAPS);
+				unregister_code(KC_CAPS);}
+			  else{
+			  set_single_persistent_default_layer(_DVOL);
+			  }
+			}
+			break;
+        case KEY_16:
+            if(record->event.pressed){
+			key_timer= timer_read();		
+			}
+			else{
+			  if(timer_elapsed(key_timer)<500){
+				register_code(KC_CAPS);
+				unregister_code(KC_CAPS);}
+			  else{
+			  set_single_persistent_default_layer(_BL);
+			  }
+			}
+			break;
+
     }
 }
