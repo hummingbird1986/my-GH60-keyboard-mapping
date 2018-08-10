@@ -7,6 +7,7 @@
 #define _VIML 1
 #define _NL 2
 #define _HHKB 3
+#define _MCO
 //#define _MD 4
 //static uint16_t key_timer;
 
@@ -16,14 +17,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LT(_VIML,KC_TAB),         KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC,KC_RBRC,KC_BSLS,
         CTL_T(KC_ESC),  KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,KC_NO,  KC_ENT ,
         KC_LSFT,KC_NO , KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_RSFT,MO(_HHKB/*|_MD*/),  
-        KC_CAPS,KC_LALT,KC_LGUI,                        KC_SPC,                         KC_RGUI,KC_RALT,KC_RCTL,KC_DEL
+        KC_CAPS,KC_LALT,KC_LGUI,                       LT（_MCO,KC_SPC),                         KC_RGUI,KC_RALT,KC_RCTL,KC_DEL
     ),
 
-/*    [_MD]=KEYMAP(
-        _______,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,_______,_______,_______,_______,_______,_______,_______,_______,
-        _______,  KC_F7,  KC_F8,  KC_F9, KC_F10, KC_F11, KC_F12,_______,_______,_______,_______,_______,_______,_______,
-        _______,KC_MPLY,KC_MRWD,KC_MFFD,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
-        _______,_______,KC_MUTE,KC_VOLD,KC_VOLU,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+/*    [_EMPTY]=KEYMAP(
+        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
         _______,_______,_______,                        _______,                        _______,_______,_______,_______
     ),
 */
@@ -51,6 +52,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,_______,_______,_______,_______,_______,_______ ,_______,_______,KC_END,KC_PGDN,KC_DOWN,_______,_______,
         _______,_______,_______,                        _______,                        _______,TG(_NL),_______,_______
             ),
+	
+    [_MCO]=KEYMAP(
+        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+        _______,   M(0),   M(1),   M(2),_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+        _______,_______,_______,                        _______,                        _______,_______,_______,_______
+    ),
+};
+
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
+    switch(id) {
+        case 0: {
+            if (record->event.pressed) {
+                return MACRO( D(LGUI), D(LCTL),D(LSFT),T(4),U(LGUI), U(LCTL),U(LSFT), END  );
+            }
+		//else {}
+                
+            
+            break;
+        }
+	case 1: {
+            if (record->event.pressed) {
+		return MACRO(D(LGUI),D(LSFT),T(4),U(LGUI),U(LSFT), END);
+	    }
+      	    break;
+	}
+	case 2: {
+            if (record->event.pressed){
+		return MACRO( D(LCTL), T(C), U(LCTL), END  );
+            } else {
+                return MACRO( D(LCTL), T(V), U(LCTL), END  );
+            }
+	    break;
+          }	
+	}
+    
+    return MACRO_NONE;
 };
 
 /*enum function_id{
